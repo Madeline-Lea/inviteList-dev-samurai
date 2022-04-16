@@ -9,20 +9,84 @@
 <body>
     <h1>Invite List</h1>
     <div id="app">
-        <ul>
-            <li>Leonard</li>
-                <a href="#">Delete</a>
-            <li>
-                <p>John</p>
-                <a href="#">Delete</a>
-            </li>
-            <li>
-                <p>George</p>
-                <a href="#">Delete</a>
-            </li>
+        <ul style="list-style: none;" id="list">
+         
         </ul>
-            <input type='text' placeholder='Type a inviter.' />
-                <button>Add</button>
+            <input type='text' placeholder='Type a inviter...' id='input'/>
+            <input type="number" placeholder="Type an age..." id='inputAge'>
+                <button id='btn'>Add</button>
     </div>
+
+    <script lang="javascript">
+        // Creates a local storage 
+        inviters = JSON.parse(localStorage.getItem("inviters"))
+        // It calls all id's to manipulate and uses DOM api.
+        var elemList = document.getElementById('list');
+        var elemInput = document.getElementById('input');
+        var elemInputAge = document.getElementById('inputAge');
+        var btnAdd = document.getElementById('btn');
+
+        // An array of objects.
+        var inviters = [
+        {id: 1, name:'Leonard', age:20},
+        {id: 2, name:'Leona', age:20},
+        {id: 3, name:'Lea Voxel', age:20}
+    ];
+
+    // It saves our list into the browser.
+
+    function save () {
+        localStorage.setItem("inviters", JSON.stringify(inviters)) || [];
+    }
+    // A loop to add the inviters into a list
+    function listInviter () {
+        elemList.innerHTML = "";
+        for(const invite of inviters){
+            var elemInviters = document.createElement('li');
+            var elemInputIdCatch = document.createTextNode(` ${invite.id} -\n`);
+            var elemName = document.createTextNode(` ${invite.name}, \n`);
+            var elemInputAge = document.createTextNode(` ${invite.age}, \n`);
+
+            //Deleting a inviter from the list 
+            var delInvite = document.createElement('button')
+                delInvite.setAttribute('href','#');
+                elemInviters.onclick = () => {
+                inviters = inviters.filter((item) =>
+                item.name !== invite.name
+                );
+                save()
+                listInviter();
+            }
+            var delText = document.createTextNode('\n Delete')
+
+            elemInviters.appendChild(elemInputIdCatch);
+            elemInviters.appendChild(elemName);
+            elemInviters.appendChild(elemInputAge);
+            elemInviters.appendChild(delInvite);
+            elemList.appendChild(elemInviters);
+            delInvite.appendChild(delText)
+            
+            
+        }
+    }
+    listInviter();
+    
+        // Adding a method called add to make an Inviter.
+
+        var addInvite = () => {
+            var name = elemInput.value; // Here grabs the value of name input
+            var age = elemInputAge.value; // Here catch the value of age input
+            var id = inviters.length + 1 ; // A length to make a count in one in one
+
+        
+        inviters.push({id: id,name: name, age: age}); // Adds a the values into the list
+        elemInput.value = ""; // A reset to name input  
+        elemInputAge.value = ""; // A reset to age input
+        save();    
+        listInviter();
+        }
+
+        btnAdd.onclick = addInvite; // Adding value
+    </script>
 </body>
-</html>
+</html>  

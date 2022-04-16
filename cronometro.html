@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronometro</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            width: 100vw;
+            height: 100vh;
+            background-color: #ffffff;
+        }
+
+        #font-color {
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="font-color"> Cronometro</h1>
+    <span id="minutos">00</span>:<span id="segundos">00</span><br />
+    <span>Minutos </span><span> Segundos </span> <br />
+    <button onclick="iniciar()">Iniciar</button>
+    <button>Parar</button>
+
+    <script lang="javascript">
+        // Declaração de Variáveis
+
+        const minutos = document.getElementById('minutos');
+        const segundos = document.getElementById('segundos');
+
+        let zero = 0;
+        let segNum = 0;
+        let minNum = 0;
+        let intervalo; 
+        
+        /*
+        Após a inserção das constantes vem o inicio das funções.
+        */
+       function segundos1 (){
+           segNum++
+           if(segNum < 10){
+               segundos.innerHTML = `${zero}${segNum}`;
+            } else {
+                segundos.innerHTML = segNum;
+            }
+            if(segNum === 59){
+                segNum = 0;
+                minutos1()
+            }
+        };
+
+        /*
+ 
+        A função minutos1 tem o trabalho de guardar os
+        os minutos que forem percorridos.
+ 
+        */
+
+         function minutos1 (){
+            minNum++
+            if(minNum < 10){
+                minutos.innerHTML = `${zero}${minNum}`;
+            } else {
+                minutos.innerHTML = minNum;
+            }
+            if(minNum === 59){
+                minNum = 0; 
+            }
+        };
+
+         function iniciar (){
+            clearInterval(intervalo)
+            intervalo = setInterval(() => {
+                segundos1()
+            }, 1000)
+        }
+    </script>
+</body>
+</html>
