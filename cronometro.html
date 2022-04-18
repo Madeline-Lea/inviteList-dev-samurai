@@ -15,26 +15,55 @@
         html, body {
             width: 100vw;
             height: 100vh;
-            background-color: #ffffff;
+            background-color: #07b04b;
         }
 
         #font-color {
             color: #000000;
         }
+
+        #botaoIniciar {
+            width: 45px;
+            height: 30px;
+            background-color: #00FFA1;
+            color: #001520;
+
+        }
+
+        .parar {
+            width: 45px;
+            height: 30px;
+            background-color: #FF0540;
+            color: #001520;
+
+        }
+
+        #reset{
+            width: 45px;
+            height: 30px;
+            background-color: #423a3c;
+            color: #001520;
+
+        }
     </style>
 </head>
 <body>
-    <h1 id="font-color"> Cronometro</h1>
-    <span id="minutos">00</span>:<span id="segundos">00</span><br />
-    <span>Minutos </span><span> Segundos </span> <br />
-    <button onclick="iniciar()">Iniciar</button>
-    <button>Parar</button>
-
+    <div align="center">
+        <h1 id="font-color"> Cronometro</h1>
+        <span id="minutos">00</span>:<span id="segundos">00</span><br />
+        <span>Minutos </span><span> Segundos </span> <br />
+    </div>
+   <div align="center" id="move-btn"> 
+    <button id='botaoIniciar' onclick="iniciar()">Iniciar</button>
+    <button onclick="parar()" class="parar">Parar</button>
+    <button id="reset"  onclick="reset()">Reset</button>
+    </div>
     <script lang="javascript">
         // Declaração de Variáveis
 
-        const minutos = document.getElementById('minutos');
-        const segundos = document.getElementById('segundos');
+        const elemMinutos = document.getElementById('minutos');
+        const elemSegundos = document.getElementById('segundos');
+        const btnIniciar = document.getElementById('botaoIniciar');
 
         let zero = 0;
         let segNum = 0;
@@ -47,13 +76,13 @@
        function segundos1 (){
            segNum++
            if(segNum < 10){
-               segundos.innerHTML = `${zero}${segNum}`;
+               elemSegundos.innerHTML = `${zero}${segNum}`;
             } else {
-                segundos.innerHTML = segNum;
+                elemSegundos.innerHTML = segNum;
             }
             if(segNum === 59){
                 segNum = 0;
-                minutos1()
+                minutos1();
             }
         };
 
@@ -67,26 +96,28 @@
          function minutos1 (){
             minNum++
             if(minNum < 10){
-                minutos.innerHTML = `${zero}${minNum}`;
+                elemMinutos.innerHTML = `${zero}${minNum}`;
             } else {
-                minutos.innerHTML = minNum;
+                elemMinutos.innerHTML = minNum;
             }
             if(minNum === 59){
                 minNum = 0; 
             }
         };
 
+        // Iniciar tem a função de começar o cronômetro.
          function iniciar (){
             clearInterval(intervalo)
             intervalo = setInterval(() => {
                 segundos1()
             }, 1000)
-        };
-
+        }
+        // Parar: ele pausa o cronômetro
         function parar (){
             clearInterval(intervalo);
         };
 
+        // O reset volta o cronômetro em 0.
         function reset (){
             clearInterval(intervalo);
             minNum = 0;
@@ -94,6 +125,7 @@
             minutos.innerHTML = '00';
             segundos.innerHTML = '00';
         };
+        
     </script>
 </body>
 </html>
