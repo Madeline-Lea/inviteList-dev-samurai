@@ -22,11 +22,11 @@
             color: #000000;
         }
 
-        #botaoIniciar {
+        #btnIniciar {
             width: 45px;
             height: 30px;
-            background-color: #00FFA1;
             color: #001520;
+            background-color: aquamarine;
 
         }
 
@@ -48,7 +48,6 @@
     </div>
    <div align="center" id="move-btn"> 
     <button id='botaoIniciar' onclick='alternar()'">Iniciar</button>
-    <button onclick="parar()">Parar</button>
     <button id="reset"  onclick="reset()">Reset</button>
     </div>
     <script type='application/javascript' lang="javascript">
@@ -110,31 +109,38 @@
         var parar = function () {
             clearInterval(intervalo);
         } 
-         var alternar = function () {
-             if(!bandeira){
-                 clearInterval(intervalo)
-                btnIniciar.innerText = 'Parar';  
-                btnIniciar.classList.remove('botaoIniciar');  
-                btnIniciar.classList.add('parar')
-                iniciar();
+        
+        var alternar = function () {
+            if(!bandeira){
                 bandeira = true;
-        } else {
-            parar();
-            btnIniciar.innerText = 'Iniciar'
-            bandeira = false;
-
-    }
-}
-
+                clearInterval(intervalo)
+                btnIniciar.innerText = 'Parar';  
+                btnIniciar.classList.add('btnIniciar');  
+                iniciar();
+            } else {
+                bandeira = false;
+                btnIniciar.innerText = 'Iniciar'
+                btnIniciar.classList.add('parar');
+                parar();
+                
+            }
+        }
+        
         // O reset volta o cronômetro em 0.
-        function reset (){
-            clearInterval(intervalo);
+
+        var reset = function (){
+            if(!bandeira){
+                clearInterval(intervalo);
             minNum = 0;
             segNum = 0;
             minutos.innerHTML = '00';
             segundos.innerHTML = '00';
-        };
-        
+            parar();
+            bandeira = true;
+            } else {
+                alert('O cronômetro apenas ficará em zero caso você o pare.')
+            }
+        }
     </script>
 </body>
 </html>
