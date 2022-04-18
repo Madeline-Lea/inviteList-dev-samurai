@@ -81,7 +81,19 @@
             intervalo = setInterval(() => {
                 segundos1()
             }, 1000)
-        }
+        };
+
+        function parar (){
+            clearInterval(intervalo);
+        };
+
+        function reset (){
+            clearInterval(intervalo);
+            minNum = 0;
+            segNum = 0;
+            minutos.innerHTML = '00';
+            segundos.innerHTML = '00';
+        };
     </script>
 </body>
 </html>
