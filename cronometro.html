@@ -38,13 +38,6 @@
 
         }
 
-        #reset{
-            width: 45px;
-            height: 30px;
-            background-color: #423a3c;
-            color: #001520;
-
-        }
     </style>
 </head>
 <body>
@@ -54,16 +47,17 @@
         <span>Minutos </span><span> Segundos </span> <br />
     </div>
    <div align="center" id="move-btn"> 
-    <button id='botaoIniciar' onclick="iniciar()">Iniciar</button>
-    <button onclick="parar()" class="parar">Parar</button>
+    <button id='botaoIniciar' onclick='alternar()'">Iniciar</button>
+    <button onclick="parar()">Parar</button>
     <button id="reset"  onclick="reset()">Reset</button>
     </div>
-    <script lang="javascript">
+    <script type='application/javascript' lang="javascript">
         // Declaração de Variáveis
 
         const elemMinutos = document.getElementById('minutos');
         const elemSegundos = document.getElementById('segundos');
         const btnIniciar = document.getElementById('botaoIniciar');
+        var bandeira = false;
 
         let zero = 0;
         let segNum = 0;
@@ -104,18 +98,33 @@
                 minNum = 0; 
             }
         };
-
+        
         // Iniciar tem a função de começar o cronômetro.
-         function iniciar (){
-            clearInterval(intervalo)
+        var iniciar =function (){
+            clearInterval(intervalo);
             intervalo = setInterval(() => {
                 segundos1()
             }, 1000)
-        }
-        // Parar: ele pausa o cronômetro
-        function parar (){
-            clearInterval(intervalo);
         };
+
+        var parar = function () {
+            clearInterval(intervalo);
+        } 
+         var alternar = function () {
+             if(!bandeira){
+                 clearInterval(intervalo)
+                btnIniciar.innerText = 'Parar';  
+                btnIniciar.classList.remove('botaoIniciar');  
+                btnIniciar.classList.add('parar')
+                iniciar();
+                bandeira = true;
+        } else {
+            parar();
+            btnIniciar.innerText = 'Iniciar'
+            bandeira = false;
+
+    }
+}
 
         // O reset volta o cronômetro em 0.
         function reset (){
